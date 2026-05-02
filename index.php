@@ -25,7 +25,7 @@ $social_query = mysqli_query($conn, "SELECT * FROM social_protocols ORDER BY id 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SHAKA_BANUASTA | COMMAND_CENTER</title>
+    <title>Shaka | Portfolio</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -213,7 +213,7 @@ $social_query = mysqli_query($conn, "SELECT * FROM social_protocols ORDER BY id 
             <div class="panel-content">
                 <div class="terminal-header">
                     <h2 class="terminal-title">SEND_MESSAGE</h2>
-                    <p class="contact-desc">Gunakan protokol di bawah ini untuk mengirimkan transmisi data langsung ke pusat kendali.</p>
+                    <p class="contact-desc">Gunakan protokol di bawah ini untuk mengirimkan transmisi data langsung ke penerima.</p>
                 </div>
                 
                 <form id="contact-form" class="sys-form">
