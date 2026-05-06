@@ -202,6 +202,17 @@ body {
     border: 1px solid #1a1a1a;
 }
 
+.cert-info a{
+    color: var(--text-white);
+    text-decoration: none;
+    transition: var(--smooth);
+    padding-top: 10px;
+}
+
+.cert-info a:hover {
+    color: var(--text-dim);
+}
+
 /* ==========================================================================
 7. SECTION: WORK LOGS
 ========================================================================== */

@@ -12,11 +12,11 @@ $skills_query = mysqli_query($conn, "SELECT * FROM skills ORDER BY proficiency_p
 // 03
 $edu_query = mysqli_query($conn, "SELECT * FROM education ORDER BY id DESC");
 // 04
-$cert_query = mysqli_query($conn, "SELECT * FROM certificates ORDER BY id DESC");
+$cert_query = mysqli_query($conn, "SELECT * FROM certificates ORDER BY cert_date DESC");
 // 05
 $work_query = mysqli_query($conn, "SELECT * FROM work_logs ORDER BY id DESC");
 // 06
-$projects_query = mysqli_query($conn, "SELECT * FROM projects ORDER BY id DESC");
+$projects_query = mysqli_query($conn, "SELECT * FROM projects ORDER BY period DESC");
 // 07
 $social_query = mysqli_query($conn, "SELECT * FROM social_protocols ORDER BY id ASC");
 ?>
@@ -135,13 +135,18 @@ $social_query = mysqli_query($conn, "SELECT * FROM social_protocols ORDER BY id 
         <section id="cert-panel" class="panel-box">
             <div class="panel-label">authorized_certificates.json</div>
             <div class="panel-content cert-grid">
-                <?php while($cert = mysqli_fetch_assoc($cert_query)): ?>
+                <?php while($cert = mysqli_fetch_assoc($cert_query)): 
+                    $cert_timestamp = strtotime($cert['cert_date']);
+                    $cert_date = date('M Y', $cert_timestamp);
+                ?>
                 <div class="cert-item">
                     <!-- cert_date digunakan sebagai kode unik visual -->
-                    <div class="cert-code"><?= strtoupper(htmlspecialchars($cert['cert_date'])) ?></div>
+                    <div class="cert-code"><?= strtoupper(htmlspecialchars($cert_date)) ?></div>
                     <div class="cert-info">
                         <h4><?= htmlspecialchars($cert['cert_name']) ?></h4>
                         <p><?= htmlspecialchars($cert['issuer']) ?></p>
+                        <hr>
+                        <a <?php if(!empty($cert['link_cert'])): ?>href="<?= $cert['link_cert'] ?>" target="_blank"<?php endif; ?>><?= isset($cert['link_cert']) ? '[VIEW]' : '[NO LINK]' ?></a>
                     </div>
                 </div>
                 <?php endwhile; ?>
@@ -192,6 +197,7 @@ $social_query = mysqli_query($conn, "SELECT * FROM social_protocols ORDER BY id 
                 <div class="proj-card">
                     <div class="proj-header">
                         <h3><?= strtoupper(htmlspecialchars($proj['project_name'])) ?></h3>
+                        <span class="p-date">[<?= strtoupper(htmlspecialchars($proj['period'])) ?>]</span>
                         <span class="p-status <?= $status_class ?>"><?= $status_raw ?></span>
                     </div>
                     <p><?= htmlspecialchars($proj['description']) ?></p>
@@ -290,7 +296,7 @@ $social_query = mysqli_query($conn, "SELECT * FROM social_protocols ORDER BY id 
     <footer class="footer-sys">
         <div class="container">
             <div class="footer-grid">
-                <div class="f-item">OS_TYPE: DEBEAST_UI_V4</div>
+                <div class="f-item">OS_TYPE: DEBEAST_UI_V4.5</div>
                 <div class="f-item">ENCODING: UTF-8</div>
                 <div class="f-item">© 2026 SHAKA BANUASTA. NO_RIGHTS_RESERVED.</div>
             </div>
